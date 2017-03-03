@@ -1,0 +1,153 @@
+
+import java.util.List;
+
+import junit.framework.Assert;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+//import org.openqa.selenium.support.ui.Select;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+
+ 
+public class Demoform {
+	
+ private static final Object True = null;
+
+public static void main(String[] args) {
+ //Firstly Installed Java 8 and then download gecko driver by this link:https://github.com/mozilla/geckodriver/releases/tag/v0.9.0//
+ //set path of Gecko driver in System.setproperty//
+System.setProperty("webdriver.firefox.marionette","G:\\5\\geckodriver.exe");
+             
+            WebDriver driver = new FirefoxDriver();
+ 
+            
+            try {
+            	driver.get("http://www.seleniumeasy.com/test/");
+				Thread.sleep(30);
+				driver.findElement(By.linkText("Input Forms")).click();
+	            
+	            driver.findElement(By.cssSelector("a[href*='basic-first-form-demo.html']")).click();
+		        Thread.sleep(30);
+				driver.findElement(By.xpath("//div/input[@id='user-message']")).sendKeys("Hi subham");
+				driver.findElement(By.xpath("//button[contains(text(),'Show Message')]")).click();
+				
+				WebElement getTotal = driver.findElement(By.id("display"));
+		           
+		           String gTot =getTotal.getText();
+		           
+		           Assert.assertEquals("Hi subham", gTot);
+		           System.out.println(gTot);
+		        } catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+           driver.findElement(By.id("sum1")).sendKeys("4");
+           driver.findElement(By.id("sum2")).sendKeys("6");
+           driver.findElement(By.xpath(".//*[@id='gettotal']/button")).click();
+           
+WebElement Total = driver.findElement(By.id("displayvalue"));
+           
+           String displayvalue =Total.getText();
+           
+           Assert.assertEquals("10", displayvalue);
+        	try {
+				Thread.sleep(30);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+           
+          
+           
+            System.out.println("Title of page:"+ driver.getTitle());
+            driver.findElement(By.linkText("Input Forms")).click();
+            //WebElement oCheckBox = driver.findElement(By.cssSelector("input[value='Tools QA']"));
+            //oCheckBox.click();
+            driver.findElement(By.cssSelector("a[href*='basic-checkbox-demo.html']")).click();
+            driver.findElement(By.id("isAgeSelected")).click();
+            System.out.println("Selected");
+
+            driver.findElement(By.xpath("//label[text()='Option 1']")).click();
+
+          driver.findElement(By.xpath("//label[text()='Option 2']")).click();
+
+            driver.findElement(By.xpath("//label[text()='Option 3']")).click();
+
+            driver.findElement(By.xpath("//label[text()='Option 4']")).click();
+
+            driver.findElement(By.id("check1")).click();
+            driver.findElement(By.id("check1")).click();
+          
+            driver.findElement(By.linkText("Input Forms")).click();
+            driver.findElement(By.cssSelector("a[href*='basic-radiobutton-demo.html']")).click();
+ driver.findElement(By.cssSelector("input[name='optradio'][value='Male']")).click();
+ driver.findElement(By.id("buttoncheck")).click();
+ WebElement Radiobutton = driver.findElement(By.cssSelector("p[class='radiobutton']"));
+ 
+ String Maleradiobutton =Radiobutton.getText();
+ 
+ Assert.assertEquals("Radio button 'Male' is checked", Maleradiobutton);
+ driver.findElement(By.cssSelector("input[name='optradio'][value='Female']")).click();
+ driver.findElement(By.id("buttoncheck")).click();
+ WebElement Femaleradiobutton = driver.findElement(By.cssSelector("p[class='radiobutton']"));
+ 
+ String Radiobutton2 =Femaleradiobutton.getText();
+ 
+ Assert.assertEquals("Radio button 'Female' is checked", Radiobutton2);
+ 
+driver.findElement(By.cssSelector("input[type='radio'][name='gender'][value='Male']")).click();
+driver.findElement(By.cssSelector("input[type='radio'][name='ageGroup'][value='0 - 5']")).click();  
+driver.findElement(By.cssSelector("input[type='radio'][name='gender'][value='Male']")).click();
+driver.findElement(By.cssSelector("input[type='radio'][name='ageGroup'][value='5 - 15']")).click(); 
+driver.findElement(By.cssSelector("input[type='radio'][name='gender'][value='Male']")).click();
+driver.findElement(By.cssSelector("input[type='radio'][name='ageGroup'][value='15 - 50']")).click();
+driver.findElement(By.xpath("//*[@id='easycont']/div/div[2]/div[2]/div[2]/button")).click();
+
+driver.findElement(By.cssSelector("input[type='radio'][name='gender'][value='Female']")).click();
+driver.findElement(By.cssSelector("input[type='radio'][name='ageGroup'][value='0 - 5']")).click();  
+driver.findElement(By.cssSelector("input[type='radio'][name='gender'][value='Female']")).click();
+driver.findElement(By.cssSelector("input[type='radio'][name='ageGroup'][value='5 - 15']")).click(); 
+driver.findElement(By.cssSelector("input[type='radio'][name='gender'][value='Female']")).click();
+driver.findElement(By.cssSelector("input[type='radio'][name='ageGroup'][value='15 - 50']")).click();
+driver.findElement(By.xpath("//button[@class='btn btn-default'][@onclick='getValues();']")).click();
+driver.findElement(By.linkText("Input Forms")).click();
+driver.findElement(By.cssSelector("a[href*='basic-select-dropdown-demo.html']")).click(); 
+
+Select dropdown = new Select(driver.findElement(By.id("select-demo")));
+dropdown.selectByVisibleText("Thursday");
+
+Select Multiselectlist = new Select(driver.findElement(By.id("multi-select")));
+Multiselectlist.selectByVisibleText("New Jersey");
+
+Robot robot=null;   
+try {
+    robot=new Robot();
+} catch (AWTException e) {
+    e.printStackTrace();
+}
+
+Select Multiselectlist1 = new Select(driver.findElement(By.id("multi-select")));
+robot.keyPress(KeyEvent.VK_CONTROL);
+robot.mousePress(InputEvent.BUTTON1_MASK);
+
+Multiselectlist1.selectByVisibleText("New Jersey");
+Multiselectlist1.selectByVisibleText("New York");
+Multiselectlist1.selectByVisibleText("Ohio");
+Multiselectlist1.selectByVisibleText("Texas");
+Multiselectlist1.selectByVisibleText("Pennsylvania");
+Multiselectlist1.selectByVisibleText("Washington");
+robot.keyRelease(KeyEvent.VK_CONTROL);
+driver.findElement(By.id("printAll")).click();
+}
+
+}
+
+
+ 
+ 
